@@ -14,7 +14,7 @@ import ConfigParser
 import getpass
 import time
 
-import saltrunner
+import pepper
 
 try:
     from logging import NullHandler
@@ -33,7 +33,7 @@ def get_parser():
     parser = optparse.OptionParser(
         description=__doc__,
         usage='%prog [opts]',
-        version=saltrunner.__version__)
+        version='0.3.0.1')
 
     parser.add_option('-c', dest='config',
         default=os.environ.get('SALTRUNNERRC',
@@ -249,7 +249,7 @@ def main():
     saltpass = login_details['SALTAPI_PASS']
     salteauth = login_details['SALTAPI_EAUTH']
 
-    api = saltrunner.Saltrunner(salturl, debug_http=opts.debug_http)
+    api = pepper.Pepper(salturl, debug_http=opts.debug_http)
     auth = api.login(saltuser, saltpass, salteauth)
     try:
       authToken = auth['token']

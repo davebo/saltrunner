@@ -32,9 +32,6 @@ setup_kwargs = {
         'Topic :: System :: Clustering',
         'Topic :: System :: Distributed Computing',
     ],
-    'packages': [
-        'saltrunner',
-    ],
     'package_data': {
         'saltrunner': ['version.json'],
     },

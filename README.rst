@@ -2,7 +2,7 @@
 Saltrunner
 ======
 
-Saltrunner contains a CLI script which uses libpepper to access a remote
+Saltrunner contains a CLI script which uses pepper to access a remote
 `salt-api`__ instance.
 
 The ``saltrunner`` CLI script allows users to execute Salt commands from computers
@@ -89,7 +89,7 @@ Acknowledgments
 --------------
 
 This project is a tweak of the CLI provided by salt-pepper
-Originally published as salt-pepper,  by Seth House
+Originally published as pepper,  by Seth House
 
 .. __: https://github.com/saltstack/pepper
 
