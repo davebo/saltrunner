@@ -18,11 +18,20 @@ Usage: saltrunner [opts]
 
 Options:
   --version             show program's version number and exit
+
   -h, --help            show this help message and exit
+
   -c CONFIG             Configuration file location. Default is a file path in
                         the "SALTRUNNERRC" environment variable or ~/.saltrunnerrc.
+                        Sample config file:
+                        [main]
+                        SALTAPI_EAUTH=pam
+                        SALTAPI_USER=me
+                        SALTAPI_URL=https://salt:8081
+
   -v                    Increment output verbosity; may be specified multiple
                         times
+
   -H, --debug-http      Output the HTTP request/response headers on stderr
 
   Saltrunner ``salt`` Options:
@@ -31,6 +40,7 @@ Options:
     -t TIMEOUT, --timeout=TIMEOUT
                         Specify wait time (in seconds) before returning
                         control to the shell
+
     -f, --fail          Optional, fail if minions do not respond
 
   Targeting Options:
@@ -49,15 +59,19 @@ Options:
     -s SALTAPIURL, --saltapi-url=SALTAPIURL
                         Specify the host url.  Defaults to
                         http://localhost:8080
+
     -a EAUTH, --auth=EAUTH, --eauth=EAUTH, --extended-auth=EAUTH
                         Specify the external_auth backend to authenticate
                         against and interactively prompt for credentials
+
     -u USERNAME, --username=USERNAME
                         Optional, defaults to user name. will be prompt if
                         empty unless --non-interactive
+
     -p PASSWORD, --password=PASSWORD
                         Optional, but will be prompted unless --non-
                         interactive
+
     -z, --non-interactive
                         Optional, fail rather than waiting for input
 
