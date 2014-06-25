@@ -153,8 +153,8 @@ def get_login_details(opts):
     # setting default values
     results = {
         'SALTAPI_URL': 'http://localhost:8000/',
-        'SALTAPI_USER': 'saltdev',
-        'SALTAPI_PASS': 'saltdev',
+        'SALTAPI_USER': '',
+        'SALTAPI_PASS': '',
         'SALTAPI_EAUTH': 'auto',
     }
 
@@ -179,22 +179,24 @@ def get_login_details(opts):
     # get eauth prompt options
     if opts.eauth:
         results['SALTAPI_EAUTH'] = opts.eauth
-    if opts.username == None:
-      if opts.interactive:
-        results['SALTAPI_USER'] = raw_input('eauth(' + results['SALTAPI_EAUTH'] + ') Username: ')
+    if results['SALTAPI_USER'] == '' :
+      if opts.username == None:
+        if opts.interactive:
+          results['SALTAPI_USER'] = raw_input('eauth(' + results['SALTAPI_EAUTH'] + ') Username: ')
+        else:
+          logger.error("SALTAPI_USER required")
+          raise SystemExit(1)
       else:
-        logger.error("SALTAPI_USER required")
-        raise SystemExit(1)
-    else:
-      results['SALTAPI_USER'] = opts.username
-    if opts.password == None:
-      if opts.interactive:
-        results['SALTAPI_PASS'] = getpass.getpass(prompt='eauth(' + results['SALTAPI_EAUTH'] + ') Password: ')
+        results['SALTAPI_USER'] = opts.username
+    if results['SALTAPI_PASS'] == '' :
+      if opts.password == None:
+        if opts.interactive:
+          results['SALTAPI_PASS'] = getpass.getpass(prompt='eauth(' + results['SALTAPI_EAUTH'] + ') Password: ')
+        else:
+          logger.error("SALTAPI_PASS required")
+          raise SystemExit(1)
       else:
-        logger.error("SALTAPI_PASS required")
-        raise SystemExit(1)
-    else:
-      results['SALTAPI_PASS'] = opts.password
+        results['SALTAPI_PASS'] = opts.password
 
     return results
 
@@ -252,7 +254,7 @@ def main():
     try:
       authToken = auth['token']
     except Exception as e:
-      print('[ERROR] Unable to get authorization from salt-api: ' + str(auth),file=sys.stderr)
+      print('[ERROR] Unable to get authorization from salt-api, url(' + str(salturl) + ') eauth(' + str(salteauth) + ') user(' + str(saltuser) + '): ' + str(auth),file=sys.stderr)
       return (1,json.dumps({}))
     nodesJidRet = api.local_async(tgt=tgt, fun='test.ping', expr_form=opts.expr_form)
     try:
