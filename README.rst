@@ -88,7 +88,8 @@ Please feel free to get involved by sending pull requests.
 Acknowledgments
 --------------
 
-This project is a tweak of the CLI script provided by salt-pepper
+This project is a tweak of the CLI provided by salt-pepper
+Originally published as salt-pepper,  by Seth House
 
 .. __: https://github.com/saltstack/pepper
 

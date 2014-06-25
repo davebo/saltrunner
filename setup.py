@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 '''
 A CLI front-end to a running salt-api system
+Originally published as salt-pepper,  by Seth House
+https://github.com/saltstack/pepper
 
 '''
 import json
@@ -29,6 +31,9 @@ setup_kwargs = {
         'Operating System :: POSIX :: Linux',
         'Topic :: System :: Clustering',
         'Topic :: System :: Distributed Computing',
+    ],
+    'packages': [
+        'saltrunner',
     ],
     'package_data': {
         'saltrunner': ['version.json'],
@@ -62,7 +67,7 @@ def write_version_file(base_dir):
         version = read_version_tag()
         json.dump({'version': version}, f)
 
-class PepperSdist(sdist.sdist):
+class SaltrunnerSdist(sdist.sdist):
     '''
     Write the version.json file to the sdist tarball build directory
     '''
@@ -70,7 +75,7 @@ class PepperSdist(sdist.sdist):
         sdist.sdist.make_release_tree(self, base_dir, files)
         write_version_file(base_dir)
 
-class PepperInstallData(install_data.install_data):
+class SaltrunnerInstallData(install_data.install_data):
     '''
     Write the version.json file to the installation directory
     '''
@@ -83,6 +88,6 @@ class PepperInstallData(install_data.install_data):
 
 if __name__ == '__main__':
     setup(cmdclass={
-        'sdist': PepperSdist,
-        'install_data': PepperInstallData,
+        'sdist': SaltrunnerSdist,
+        'install_data': SaltrunnerInstallData,
     }, version=read_version_tag(), **setup_kwargs)
