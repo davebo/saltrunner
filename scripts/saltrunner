@@ -287,6 +287,7 @@ def main():
       if total_time > opts.timeout :
          break
       time.sleep(seconds_to_wait)
+      total_time += seconds_to_wait
       commandRet = api.lookup_jid(commandJid)
       returnedNodes = commandRet['return'][0].keys()
 
