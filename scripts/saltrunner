@@ -254,21 +254,21 @@ def main():
     try:
       authToken = auth['token']
     except Exception as e:
-      print('[ERROR] Unable to get authorization from salt-api, url(' + str(salturl) + ') eauth(' + str(salteauth) + ') user(' + str(saltuser) + '): ' + str(auth),file=sys.stderr)
+      logger.error('Unable to get authorization from salt-api, url(' + str(salturl) + ') eauth(' + str(salteauth) + ') user(' + str(saltuser) + '): ' + str(auth))
       return (1,json.dumps({}))
     nodesJidRet = api.local_async(tgt=tgt, fun='test.ping', expr_form=opts.expr_form)
     try:
       nodesJidRetValue = nodesJidRet['return'][0]
     except Exception as e:
-      print('[ERROR] Unexpected output from salt-api, no return data: ' + str(nodesJidRet),file=sys.stderr)
+      logger.error('Unexpected output from salt-api, no return data: ' + str(nodesJidRet))
       return (1,json.dumps({}))
     if type(nodesJidRet['return'][0]) == type('') or type(nodesJidRet['return'][0]) == type(u''):
-      print('[ERROR] ' + str(nodesJidRet['return']),file=sys.stderr)
+      logger.error(str(nodesJidRet['return']))
       return (1,json.dumps({}))
     try:
       nodesJid = nodesJidRet['return'][0]['jid']
     except Exception as e:
-      print('[ERROR] Unable to determine jid ' + str(nodesJidRet['return'][0]) + ", " + str(e),file=sys.stderr)
+      logger.error('Unable to determine jid ' + str(nodesJidRet['return'][0]) + ", " + str(e))
       return (1,json.dumps({}))
     time.sleep(seconds_to_wait)
     nodesRet = api.lookup_jid(nodesJid)
